@@ -278,6 +278,13 @@
     note.insertBefore(el('p', { class: 'muted', text: '가상 데이터에 맞춰 기준일을 ' + S.asOf + '로 바꿨습니다. 실제 파일을 넣을 때는 기준일을 오늘로 바꿔 주세요.' }), note.firstChild);
   }
 
+  // 단계 세기: 예시 데이터·파일 선택·비교하기를 누르면 주소 끝만 /settle-check-kr/e/.../로 바꿔,
+  // 쿠키 없는 Cloudflare Web Analytics가 익명 페이지 보기로 셉니다. 파일 내용과 입력값은 보내지 않습니다.
+  function step(p) { try { if (location.pathname !== p) history.pushState(null, '', p); } catch (e) {} }
+  $('ordersFile').addEventListener('change', function () { step('/settle-check-kr/e/file/'); });
+  $('settlementFile').addEventListener('change', function () { step('/settle-check-kr/e/file/'); });
+  $('loadSample').addEventListener('click', function () { step('/settle-check-kr/e/sample/'); });
+  $('runBtn').addEventListener('click', function () { step('/settle-check-kr/e/run/'); });
   $('asOf').value = todayISO();
   $('ordersFile').addEventListener('change', function () { onFile('orders', this); });
   $('settlementFile').addEventListener('change', function () { onFile('settlement', this); });
